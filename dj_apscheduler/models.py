@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 import logging
 
-from django_apscheduler import util
-from django_apscheduler.util import get_django_internal_datetime
+from dj_apscheduler import util
+from dj_apscheduler.util import get_django_internal_datetime
 
 logger = logging.getLogger(__name__)
 
@@ -140,7 +140,7 @@ class DjangoJobExecution(models.Model):
         """
         Uses an APScheduler lock to ensure that only one database entry can be created / updated at a time.
 
-        This keeps django_apscheduler in sync with APScheduler and maintains a 1:1 mapping between APScheduler events
+        This keeps dj_apscheduler in sync with APScheduler and maintains a 1:1 mapping between APScheduler events
         that are triggered and the corresponding DjangoJobExecution model instances that are persisted to the database.
         :param lock: The lock to use when updating the database - probably obtained by calling _scheduler._create_lock()
         :param job_id: The ID to the APScheduler job that this job execution is for.

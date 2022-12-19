@@ -11,9 +11,9 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from django_apscheduler.models import DjangoJob, DjangoJobExecution
-from django_apscheduler import util
-from django_apscheduler.jobstores import DjangoJobStore, DjangoMemoryJobStore
+from dj_apscheduler.models import DjangoJob, DjangoJobExecution
+from dj_apscheduler import util
+from dj_apscheduler.jobstores import DjangoJobStore, DjangoMemoryJobStore
 
 
 @admin.register(DjangoJob)

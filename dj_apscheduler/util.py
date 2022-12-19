@@ -86,7 +86,7 @@ def retry_on_db_operational_error(func):
        needs to be re-tried as part of an atomic transaction. See: https://github.com/django/django/pull/2740
 
     3. Pinging the database before each operation to see if it is still available: django-apscheduler used to make use
-       of this approach (see: https://github.com/jcass77/django-apscheduler/blob/9ac06b33d19961da6c36d5ac814d4338beb11309/django_apscheduler/models.py#L16-L51).
+       of this approach (see: https://github.com/jcass77/django-apscheduler/blob/9ac06b33d19961da6c36d5ac814d4338beb11309/dj_apscheduler/models.py#L16-L51).
        Injecting an additional database query, on an arbitrary schedule, seems like an unreasonable thing to do,
        especially considering that this would be unnecessary for users that already make use of a database connection
        pooler to manage their connections properly.

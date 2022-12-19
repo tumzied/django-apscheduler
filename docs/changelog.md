@@ -194,7 +194,7 @@ This changelog is used to track all major changes to django-apscheduler.
 ## v0.2.8 (2018-04-28)
 
 - Fixed bug [#20](https://github.com/jcass77/django-apscheduler/issues/20).
-- Changed logger from `default` to `django_apscheduler`.
+- Changed logger from `default` to `dj_apscheduler`.
 - Added `on_error_value` into `ignore_database_error` (to return empty array instead of `None` in some methods).
 - Added django==1.8 test env in tox.ini
 
@@ -208,7 +208,7 @@ This changelog is used to track all major changes to django-apscheduler.
 ## v0.2.6 (2018-04-12)
 
 - This release closes bugs described in (Fixes [#15](https://github.com/jcass77/django-apscheduler/issues/15)).
-- After updating, please run `./manage.py migrate django_apscheduler` to apply the latest database changes.
+- After updating, please run `./manage.py migrate dj_apscheduler` to apply the latest database changes.
 
 
 ## v0.2.5 (2018-02-01)

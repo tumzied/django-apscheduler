@@ -8,8 +8,8 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="django-apscheduler",
-    version="0.6.2",
+    name="dj-apscheduler",
+    version="0.6.2.1.1",
     description="APScheduler for Django",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -34,10 +34,12 @@ setup(
         "Framework :: Django :: 4.0",
     ],
     keywords="django apscheduler django-apscheduler",
-    packages=find_packages(exclude=("tests",)),
+    packages=find_packages(exclude=("tests","abcd")),
     install_requires=[
         "django>=3.2",
         "apscheduler>=3.2,<4.0",
     ],
     zip_safe=False,
 )
+
+# pip install --index-url https://test.pypi.org/simple/ --no-deps dj_apschedular

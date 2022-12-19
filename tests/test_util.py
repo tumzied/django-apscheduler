@@ -7,7 +7,7 @@ from django import db
 
 from django.utils import timezone
 
-from django_apscheduler import util
+from dj_apscheduler import util
 
 
 def test_get_dt_format_default():
@@ -101,14 +101,14 @@ def test_retry_on_db_operational_error_db_operational_error_retry_ok(caplog):
         assert close_mock.call_count == 1
 
     assert (
-            "DB error executing 'dummy_db_op' (Some DB-related error). Retrying with a new DB connection..."
-            in caplog.text
+        "DB error executing 'dummy_db_op' (Some DB-related error). Retrying with a new DB connection..."
+        in caplog.text
     )
 
 
 @pytest.mark.django_db
 def test_retry_on_db_operational_error_db_operational_error_retry_error_persists_re_raises(
-        caplog,
+    caplog,
 ):
     @util.retry_on_db_operational_error
     def func():
@@ -122,14 +122,14 @@ def test_retry_on_db_operational_error_db_operational_error_retry_error_persists
         assert close_mock.call_count == 1
 
     assert (
-            "DB error executing 'func' (Some DB-related error). Retrying with a new DB connection..."
-            in caplog.text
+        "DB error executing 'func' (Some DB-related error). Retrying with a new DB connection..."
+        in caplog.text
     )
 
 
 @pytest.mark.django_db
 def test_retry_on_db_operational_error_non_db_operational_error_re_raises(
-        caplog,
+    caplog,
 ):
     @util.retry_on_db_operational_error
     def func():
@@ -142,8 +142,8 @@ def test_retry_on_db_operational_error_non_db_operational_error_re_raises(
         assert not close_mock.called
 
     assert (
-            "DB error executing 'dummy_db_op' (Some DB-related error). Retrying with a new DB connection..."
-            not in caplog.text
+        "DB error executing 'dummy_db_op' (Some DB-related error). Retrying with a new DB connection..."
+        not in caplog.text
     )
 
 
@@ -153,7 +153,7 @@ def test_close_old_connections_calls_close_old_connections():
         pass
 
     with mock.patch(
-            "django_apscheduler.util.db.close_old_connections"
+        "dj_apscheduler.util.db.close_old_connections"
     ) as close_old_connections_mock:
         job_mock()
 
@@ -166,7 +166,7 @@ def test_close_old_connections_even_if_exception_is_raised():
         raise RuntimeError("some error")
 
     with mock.patch(
-            "django_apscheduler.util.db.close_old_connections"
+        "dj_apscheduler.util.db.close_old_connections"
     ) as close_old_connections_mock:
         with pytest.raises(RuntimeError, match="some error"):
             job_mock()

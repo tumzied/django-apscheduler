@@ -8,9 +8,9 @@ from django.contrib.messages.storage.base import BaseStorage
 from django.utils import timezone
 from django.utils.html import format_html
 
-from django_apscheduler.admin import DjangoJobAdmin, DjangoJobExecutionAdmin
-from django_apscheduler.jobstores import DjangoJobStore
-from django_apscheduler.models import DjangoJob, DjangoJobExecution
+from dj_apscheduler.admin import DjangoJobAdmin, DjangoJobExecutionAdmin
+from dj_apscheduler.jobstores import DjangoJobStore
+from dj_apscheduler.models import DjangoJob, DjangoJobExecution
 
 
 class TestDjangoJobAdmin:
@@ -39,7 +39,7 @@ class TestDjangoJobAdmin:
         )  # Most recent job execution
 
         admin = DjangoJobAdmin(DjangoJob, None)
-        admin.get_queryset(rf.get("/admin/django_apscheduler/djangojob"))
+        admin.get_queryset(rf.get("/admin/dj_apscheduler/djangojob"))
 
         assert admin.avg_duration_qs.count() == 1
         assert admin.avg_duration_qs.first()[0] == job.id
@@ -51,7 +51,7 @@ class TestDjangoJobAdmin:
         request.addfinalizer(job.delete)
 
         admin = DjangoJobAdmin(DjangoJob, None)
-        admin.get_queryset(rf.get("/admin/django_apscheduler/djangojob"))
+        admin.get_queryset(rf.get("/admin/dj_apscheduler/djangojob"))
 
         assert admin.local_run_time(job) == "(paused)"
 
@@ -80,7 +80,7 @@ class TestDjangoJobAdmin:
         )  # Most recent job execution
 
         admin = DjangoJobAdmin(DjangoJob, None)
-        admin.get_queryset(rf.get("/admin/django_apscheduler/djangojob"))
+        admin.get_queryset(rf.get("/admin/dj_apscheduler/djangojob"))
 
         assert admin.average_duration(job) == 7.5
 
@@ -93,7 +93,7 @@ class TestDjangoJobAdmin:
         request.addfinalizer(job.delete)
 
         admin = DjangoJobAdmin(DjangoJob, None)
-        r = rf.get("/django_apscheduler/djangojob/")
+        r = rf.get("/dj_apscheduler/djangojob/")
         admin.get_queryset(r)
 
         assert admin.average_duration(job) == "None"
@@ -112,7 +112,7 @@ class TestDjangoJobAdmin:
 
         admin = DjangoJobAdmin(DjangoJob, None)
 
-        r = rf.get("/django_apscheduler/djangojob/")
+        r = rf.get("/dj_apscheduler/djangojob/")
         # Add support for Django messaging framework
         r._messages = mock.MagicMock(BaseStorage)
         r._messages.add = mock.MagicMock()
@@ -136,7 +136,7 @@ class TestDjangoJobAdmin:
 
         admin = DjangoJobAdmin(DjangoJob, None)
 
-        r = rf.get("/django_apscheduler/djangojob/")
+        r = rf.get("/dj_apscheduler/djangojob/")
         # Add support for Django messaging framework
         r._messages = mock.MagicMock(BaseStorage)
         r._messages.add = mock.MagicMock()
@@ -164,12 +164,12 @@ class TestDjangoJobAdmin:
 
         admin = DjangoJobAdmin(DjangoJob, None)
 
-        r = rf.get("/django_apscheduler/djangojob/")
+        r = rf.get("/dj_apscheduler/djangojob/")
         # Add support for Django messaging framework
         r._messages = mock.MagicMock(BaseStorage)
         r._messages.add = mock.MagicMock()
 
-        with mock.patch("django_apscheduler.admin.BackgroundScheduler.add_listener"):
+        with mock.patch("dj_apscheduler.admin.BackgroundScheduler.add_listener"):
             admin.run_selected_jobs(r, DjangoJob.objects.filter(id=job.id))
 
         assert DjangoJobExecution.objects.count() == 0
@@ -202,7 +202,7 @@ class TestDjangoJobExecutionAdmin:
         )
 
         admin = DjangoJobExecutionAdmin(DjangoJob, None)
-        admin.get_queryset(rf.get("/admin/django_apscheduler/djangojob"))
+        admin.get_queryset(rf.get("/admin/dj_apscheduler/djangojob"))
 
         assert "green" in admin.html_status(execution)
 
@@ -220,6 +220,6 @@ class TestDjangoJobExecutionAdmin:
         )
 
         admin = DjangoJobExecutionAdmin(DjangoJob, None)
-        admin.get_queryset(rf.get("/admin/django_apscheduler/djangojob"))
+        admin.get_queryset(rf.get("/admin/dj_apscheduler/djangojob"))
 
         assert admin.duration_text(execution) == "N/A"

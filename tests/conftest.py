@@ -10,8 +10,8 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from django import db
 from django.db import transaction
 
-from django_apscheduler.jobstores import DjangoJobStore
-from django_apscheduler.models import DjangoJob
+from dj_apscheduler.jobstores import DjangoJobStore
+from dj_apscheduler.models import DjangoJob
 
 
 def raise_db_operational_error(*args, **kwargs):

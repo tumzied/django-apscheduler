@@ -8,7 +8,7 @@ from apscheduler import events
 from django import db
 from django.utils import timezone
 
-from django_apscheduler.models import DjangoJobExecution, DjangoJob
+from dj_apscheduler.models import DjangoJobExecution, DjangoJob
 from tests import conftest
 
 logging.basicConfig()
@@ -144,7 +144,7 @@ class TestDjangoJobExecution:
 
     @pytest.mark.django_db(transaction=True)
     def test_atomic_update_or_create_does_retry_on_db_operational_error(
-            self, request, jobstore
+        self, request, jobstore
     ):
         now = timezone.now()
         job = DjangoJob.objects.create(id="test_job", next_run_time=now)
@@ -159,8 +159,8 @@ class TestDjangoJobExecution:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.models.DjangoJobExecution.objects.select_for_update",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.models.DjangoJobExecution.objects.select_for_update",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     DjangoJobExecution.atomic_update_or_create(
                         RLock(),

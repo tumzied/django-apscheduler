@@ -2,7 +2,7 @@
 db
 .cache
 .idea
-django_apscheduler.egg-info
+dj_apscheduler.egg-info
 .tox
 .coverage
 dist

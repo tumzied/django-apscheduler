@@ -8,12 +8,12 @@ from apscheduler.events import JobExecutionEvent, JobSubmissionEvent
 from django import db
 from django.utils import timezone
 
-from django_apscheduler.jobstores import (
+from dj_apscheduler.jobstores import (
     DjangoJobStore,
     register_job,
     register_events,
 )
-from django_apscheduler.models import DjangoJob, DjangoJobExecution
+from dj_apscheduler.models import DjangoJob, DjangoJobExecution
 from tests import conftest
 from tests.conftest import DummyScheduler, dummy_job
 
@@ -43,7 +43,7 @@ class TestDjangoResultStoreMixin:
         ],
     )
     def test_handle_submission_event_creates_job_execution(
-            self, event_code, jobstore, create_add_job
+        self, event_code, jobstore, create_add_job
     ):
         job = create_add_job(jobstore, dummy_job, datetime(2016, 5, 3))
         event = JobSubmissionEvent(event_code, job.id, jobstore, [timezone.now()])
@@ -53,7 +53,7 @@ class TestDjangoResultStoreMixin:
 
     @pytest.mark.django_db(transaction=True)
     def test_handle_submission_event_for_job_that_no_longer_exists_does_not_raise_exception(
-            self, jobstore
+        self, jobstore
     ):
         event = JobSubmissionEvent(
             events.EVENT_JOB_SUBMITTED, "finished_job", jobstore, [timezone.now()]
@@ -137,7 +137,7 @@ class TestDjangoResultStoreMixin:
 
     @pytest.mark.django_db(transaction=True)
     def test_handle_error_event_for_job_that_no_longer_exists_does_not_raise_exception(
-            self, jobstore
+        self, jobstore
     ):
         event = JobExecutionEvent(
             events.EVENT_JOB_ERROR, "finished_job", jobstore, timezone.now()
@@ -175,8 +175,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.get",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.get",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.lookup_job("some job")
 
@@ -187,8 +187,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.filter",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.filter",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.get_due_jobs(datetime(2016, 5, 3))
 
@@ -199,8 +199,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.filter",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.filter",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.get_next_run_time()
 
@@ -218,8 +218,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.create",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.create",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.add_job(job)
 
@@ -237,8 +237,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.select_for_update",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.select_for_update",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.update_job(job)
 
@@ -249,8 +249,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.select_for_update",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.select_for_update",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.remove_job("some job")
 
@@ -261,8 +261,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.all",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.all",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore.remove_all_jobs()
 
@@ -273,8 +273,8 @@ class TestDjangoJobStore:
         with mock.patch.object(db.connection, "close") as close_mock:
             with pytest.raises(db.OperationalError, match="Some DB-related error"):
                 with mock.patch(
-                        "django_apscheduler.jobstores.DjangoJob.objects.filter",
-                        side_effect=conftest.raise_db_operational_error,
+                    "dj_apscheduler.jobstores.DjangoJob.objects.filter",
+                    side_effect=conftest.raise_db_operational_error,
                 ):
                     jobstore._get_jobs()
 

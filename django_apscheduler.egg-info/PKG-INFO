@@ -1,3 +1,31 @@
+Metadata-Version: 2.1
+Name: django-apscheduler
+Version: 0.6.2.1
+Summary: APScheduler for Django
+Home-page: http://github.com/jcass77/django-apscheduler
+Author: Jarek Glowacki, Stas Kaledin, John Cass
+Author-email: jarekwg@gmail.com, staskaledin@gmail.com, john.cass77@gmail.com
+License: MIT
+Keywords: django apscheduler django-apscheduler
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS
+
 Django APScheduler
 ==================
 
@@ -91,11 +119,11 @@ pip install django-apscheduler
 Quick start
 -----------
 
-- Add ``dj_apscheduler`` to your ``INSTALLED_APPS`` setting like this:
+- Add ``django_apscheduler`` to your ``INSTALLED_APPS`` setting like this:
 ```python
 INSTALLED_APPS = (
     # ...
-    "dj_apscheduler",
+    "django_apscheduler",
 )
 ```
 
@@ -119,7 +147,7 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 ```
 
-- Run `python manage.py migrate` to create the dj_apscheduler models.
+- Run `python manage.py migrate` to create the django_apscheduler models.
 
 - Add a [custom Django management command](https://docs.djangoproject.com/en/dev/howto/custom-management-commands/) to your project
   that schedules the APScheduler jobs and starts the scheduler:
@@ -133,9 +161,9 @@ from django.conf import settings
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django.core.management.base import BaseCommand
-from dj_apscheduler.jobstores import DjangoJobStore
-from dj_apscheduler.models import DjangoJobExecution
-from dj_apscheduler import util
+from django_apscheduler.jobstores import DjangoJobStore
+from django_apscheduler.models import DjangoJobExecution
+from django_apscheduler import util
 
 logger = logging.getLogger(__name__)
 
@@ -278,3 +306,5 @@ Project resources
 
 - [Changelog](docs/changelog.md)
 - [Release procedures](docs/releasing.md)
+
+

@@ -13,9 +13,9 @@ from apscheduler.schedulers.base import BaseScheduler
 from django import db
 from django.db import transaction, IntegrityError
 
-from django_apscheduler import util
-from django_apscheduler.models import DjangoJob, DjangoJobExecution
-from django_apscheduler.util import (
+from dj_apscheduler import util
+from dj_apscheduler.models import DjangoJob, DjangoJobExecution
+from dj_apscheduler.util import (
     get_apscheduler_datetime,
     get_django_internal_datetime,
 )

@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         help_text="The job that this execution relates to.",
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="django_apscheduler.djangojob",
+                        to="dj_apscheduler.djangojob",
                     ),
                 ),
             ],
